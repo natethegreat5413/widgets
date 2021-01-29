@@ -19,13 +19,18 @@ const Search = () => {
 
 			setResults(data.query.search);
 		};
+
+		if (term && !results.length) {
+			search();
+		} else {
+			const delay = setTimeout(() => {
+				if (term) {
+					search();
+				}
+			}, 500);
+			return () => clearTimeout(delay);
+		}
 		// This delays the search by 500 milliseconds
-		const delay = setTimeout(() => {
-			if (term) {
-				search();
-			}
-		}, 500);
-		return () => clearTimeout(delay);
 	}, [term]);
 
 	const renderResults = results.map((result) => {
