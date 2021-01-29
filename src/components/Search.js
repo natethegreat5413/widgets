@@ -31,7 +31,7 @@ const Search = () => {
 			return () => clearTimeout(delay);
 		}
 		// This delays the search by 500 milliseconds
-	}, [term]);
+	}, [term, results.length]);
 
 	const renderResults = results.map((result) => {
 		return (
