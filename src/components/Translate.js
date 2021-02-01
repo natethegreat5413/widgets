@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import Dropdown from './Dropdown';
 import Convert from './Convert';
 
-// CAN ONLY BE USED ON LOCALHOST:3000 //
-const KEY = 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM';
-
 const options = [
 	{
 		label: 'Afrikaans',

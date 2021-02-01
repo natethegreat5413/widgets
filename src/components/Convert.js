@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// CAN ONLY BE USED ON LOCALHOST:3000 //
-const KEY = 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM';
-
 const Convert = ({ language, text }) => {
 	const [translated, setTranslated] = useState('');
+	const [debouncedText, setDebouncedText] = useState(text);
+
+	useEffect(() => {
+		const timerId = setTimeout(() => {
+			setDebouncedText(text);
+		}, 1000);
+
+		return () => {
+			clearTimeout(timerId);
+		};
+	}, [text]);
 
 	useEffect(() => {
 		const doTranslation = async () => {
@@ -14,17 +22,19 @@ const Convert = ({ language, text }) => {
 				{},
 				{
 					params: {
-						q: text,
+						q: debouncedText,
 						target: language.value,
-						key: KEY
+						key: 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM'
 					}
 				}
 			);
+
 			setTranslated(data.data.translations[0].translatedText);
 		};
 
 		doTranslation();
-	}, [language, text]);
+	}, [language, debouncedText]);
+
 	return (
 		<div>
 			<h1 className="ui header">{translated}</h1>
