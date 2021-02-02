@@ -31,13 +31,16 @@ const Search = () => {
 			return () => clearTimeout(delay);
 		}
 		// This delays the search by 500 milliseconds
-	}, [term]);
+	}, [term, results.length]);
 
 	const renderResults = results.map((result) => {
 		return (
 			<div className="item" key={result.pageid}>
 				<div className="right floated content">
-					<a href={`https://en.wikipedia.org?curid=${result.pageid}`} className="ui button">
+					<a
+						href={`https://en.wikipedia.org?curid=${result.pageid}`}
+						className="ui button"
+					>
 						Go
 					</a>
 				</div>
@@ -54,7 +57,11 @@ const Search = () => {
 			<div className="ui form">
 				<div className="field">
 					<label>Enter Search Term</label>
-					<input className="input" onChange={(e) => setTerm(e.target.value)} value={term} />
+					<input
+						className="input"
+						onChange={(e) => setTerm(e.target.value)}
+						value={term}
+					/>
 				</div>
 			</div>
 			<div className="ui celled list">{renderResults}</div>
